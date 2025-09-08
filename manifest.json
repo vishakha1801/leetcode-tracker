@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "LeetCode Tracker",
+  "version": "2.0",
+  "description": "Privacy-focused LeetCode progress tracker. No data collection, local storage only.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "cookies",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://leetcode.com/*",
+    "https://*.leetcode.com/*",
+    "https://assets.leetcode.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://leetcode.com/*",
+        "https://*.leetcode.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["popup.js", "newtab.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}
